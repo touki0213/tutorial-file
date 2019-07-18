@@ -7,7 +7,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "login with invalid information" do
-    get login_path
+    get login_path  
     assert_template 'sessions/new'
     post login_path, params: { session: { email: "", password: "" } }
     assert_template 'sessions/new'
@@ -20,18 +20,18 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     get login_path
     post login_path, params: { session: { email:    @user.email,
                                           password: 'password' } }
-    assert_redirected_to @user
-    follow_redirect!
+    assert_redirected_to @user  #リダイレクト先が正しいかどうかのチェック
+    follow_redirect!  #ログイン用リンクが表示されなくなったことも確認
     assert_template 'users/show'
-    assert_select "a[href=?]", login_path, count: 0
+    assert_select "a[href=?]", login_path, count: 0  #渡したパターんに一致するリンクが０かどうか確認
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", user_path(@user)
   end
 
-  test "login with valid information followed by logout" do
-    get login_path
-    post login_path, params: { session: { email:    @user.email,
-                                          password: 'password' } }
+  test "login with valid information followed by logout" do          #ログアウトしてルートURLにリダイレクトされたこと
+    get login_path                                                   #ログイン用リンクがサイド表示されること
+    post login_path, params: { session: { email:    @user.email,     #ログアウト用リンクとプロフィールリンクが非表示になること
+                                          password: 'password' } }   #を確認
     assert is_logged_in?
     assert_redirected_to @user
     follow_redirect!

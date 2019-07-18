@@ -74,8 +74,8 @@ class UserTest < ActiveSupport::TestCase
   test "associated microposts should be destroyed" do
     @user.save
     @user.microposts.create!(content: "Lorem ipsum")
-    assert_difference 'Micropost.count',-1 do
-      @user.destroy
+    assert_difference 'Micropost.count',-1 do  #ユーザーを削除してみて、マイクロポストの数が1つ減っているかどうかを確認
+      @user.destroy  #ユーザーが削除した時マイクロポストも一緒に解除されるか確認
     end
   end
 end

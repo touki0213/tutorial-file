@@ -3,8 +3,8 @@ require 'test_helper'
 class MicropostTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:michael)
-    @micropost = @user.microposts.build(content: "Lorem ipsum")
+    @user = users(:michael)  #サンプルユーザーとの紐付け
+    @micropost = @user.microposts.build(content: "Lorem ipsum")  #micropostが有効かどうかのチェック
   end
 
   test "should be valid" do
@@ -28,6 +28,6 @@ class MicropostTest < ActiveSupport::TestCase
   end
 
   test "order should be most recent first" do
-    assert_equal microposts(:most_recent),Micropost.first
+    assert_equal microposts(:most_recent),Micropost.first #fixture内の(most_recent)と同じか検証
   end
 end
