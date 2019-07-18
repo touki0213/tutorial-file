@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  has_many :microposts,dependent: :destroy
-  attr_accessor :remember_token, :activation_token, :reset_token
+  has_many :microposts,dependent: :destroy  #micropostモデルと関連付けてる
+                                            #ユーザーが削除した時マイクロポストも一緒に解除される
+  attr_accessor :remember_token, :activation_token, :reset_token  #「attr_accessor」仮想の属性を作成
   before_save   :downcase_email
   before_create :create_activation_digest
   validates :name,  presence: true, length: { maximum: 50 }
@@ -25,8 +26,8 @@ class User < ApplicationRecord
 
   # 永続セッションのためにユーザーをデータベースに記憶する
   def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    self.remember_token = User.new_token  #「self」の代入によってユーザーのremember_token属性が期待通りに設定される
+    update_attribute(:remember_digest, User.digest(remember_token))  #「update_attribute」で記憶ダイジェストを更新
   end
 
  # トークンがダイジェストと一致したらtrueを返す
@@ -69,10 +70,10 @@ end
       reset_sent_at < 2.hours.ago
     end
 
-    #施策feedの定義
+    #試作feedの定義
     #完全な実装は次章の『ユーザーをフォローする』を参照
     def feed
-      Micropost.where("user_id=?",id)
+      Micropost.where("user_id=?",id)  #深刻なセキュリティホールを避けることができる
     end
 
   private
