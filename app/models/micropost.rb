@@ -1,5 +1,5 @@
 class Micropost < ActiveRecord::Base
-  belongs_to :user  #userモデルと関連付けてる
+  belongs_to :user  #userモデルと関連付けてる、対応するユーザーを特定する
   default_scope -> {order(created_at: :desc)}  #新しい投稿から古い投稿の順に並ばせる
   mount_uploader :picture, PictureUploader  #「mount_uploader」画像と関連づけるメソッド
   validates :user_id, presence: true  #user_id の存在性

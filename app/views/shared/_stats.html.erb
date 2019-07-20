@@ -1,0 +1,15 @@
+<% @user ||= current_user %>  <%# プロフィールページの場合は何もせず、 %>
+<div class="stats">           <%# ホームページの場合@userにcurrent_userを代入する。%>
+    <a href="<%= following_user_path(@user)%> ">
+        <strong id="following" class="stat">
+            <%= @user.following.count%>  <%# フォローしているユーザー数%>
+        </strong>
+        following
+    </a>
+    <a href="<%= followers_user_path(@user)%> ">
+        <strong id="followers" class="stat">
+            <%= @user.followers.count%>  <%# フォローされてるユーザー数%>
+        </strong>
+        followers
+    </a>
+</div>

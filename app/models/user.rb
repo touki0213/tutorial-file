@@ -1,6 +1,18 @@
 class User < ApplicationRecord
-  has_many :microposts,dependent: :destroy  #micropostモデルと関連付けてる
-                                            #ユーザーが削除した時マイクロポストも一緒に解除される
+  has_many :microposts,#micropostモデルと関連付けてる
+            dependent: :destroy  #ユーザーが削除した時マイクロポストも一緒に解除される
+
+  has_many :active_relationships, class_name: "Relationship",  #二人のユーザーの関係
+            foreign_key: "follower_id",  #「foreign_key」はdbの二つのテーブルを繋ぐとき用いる
+            dependent: :destroy
+
+  has_many :passive_relationships, class_name: "Relationship",
+            foreign_key: "followed_id",
+            dependent: :destroy
+
+  has_many :following, through: :active_relationships, source: :followed  #対象のユーザーを取得している
+  has_many :followers, through: :passive_relationships, source: :follower  
+
   attr_accessor :remember_token, :activation_token, :reset_token  #「attr_accessor」仮想の属性を作成
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -11,6 +23,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
 
   # 渡された文字列のハッシュ値を返す
   def User.digest(string)
@@ -70,10 +83,27 @@ end
       reset_sent_at < 2.hours.ago
     end
 
-    #試作feedの定義
-    #完全な実装は次章の『ユーザーをフォローする』を参照
+     # ユーザーのステータスフィードを返す
     def feed
-      Micropost.where("user_id=?",id)  #深刻なセキュリティホールを避けることができる
+      following_ids = "SELECT followed_id FROM relationships
+                      WHERE follower_id = :user_id"
+      Micropost.where("user_id IN (#{following_ids})
+                      OR user_id = :user_id", user_id: id)
+    end                                       
+
+      # ユーザーをフォローする
+    def follow(other_user)
+      following << other_user
+    end
+
+    # ユーザーをフォロー解除する
+    def unfollow(other_user)
+      active_relationships.find_by(followed_id: other_user.id).destroy
+    end
+
+    # 現在のユーザーがフォローしてたらtrueを返す
+    def following?(other_user)
+      following.include?(other_user)
     end
 
   private

@@ -1,0 +1,2 @@
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow'))%>");  <%# 「follow_form」をJqueryで操作する%>
+$("#followers").html('<%= @user.followers.count%>');                          <%# 「.html」は引数で指定された要素の内部にあるhtmlを更新する%>
