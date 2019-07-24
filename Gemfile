@@ -14,8 +14,7 @@ gem 'mini_magick',             '4.7.0'
 
 group :production do
   gem 'pg',  '0.20.0'
-  gem 'fog', '1.42'
-  end
+end
 
 gem 'will_paginate', '3.1.7'
 gem 'bootstrap-will_paginate', '1.0.0'
