@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.activated = true
     if @user.save
-      # @user.send_activation_email
+      # @user.send_activation_emai
       # flash[:info] = "登録が完了しました。"
       log_in @user
       remember(@user)
