@@ -13,6 +13,11 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed  #対象のユーザーを取得している
   has_many :followers, through: :passive_relationships, source: :follower  
 
+  has_many :from_messages, class_name: "Message", foreign_key: "from_id", dependent: :destroy
+  has_many :to_messages, class_name: "Message", foreign_key: "to_id", dependent: :destroy
+  has_many :sent_messages, through: :from_messages, source: :from
+  has_many :received_messages, through: :to_messages, source: :to
+
   attr_accessor :remember_token, :activation_token, :reset_token  #「attr_accessor」仮想の属性を作成
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -117,5 +122,10 @@ end
     def create_activation_digest
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
+    end
+
+    #他のuserにmessageを送る
+    def send_message(other_user, room_id, content)
+      from_messages.create!(to_id: other_user.id, room_id: room_id, content: content)
     end
 end

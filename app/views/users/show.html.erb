@@ -6,11 +6,31 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
+      <span><%= pluralize(current_user.microposts.count,"micropost") %> </span> 
     </section>
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+
+    <% if !current_user?(@user) && logged_in? %>
+      <section class="message_box">
+        <div id="nessages">
+          <%= render @messages %>
+        </div>
+      </section>
+      <script tupe="text/javascript">
+        var height = 0;
+        $("div.message").each(function() {
+          height += ($(this).height());
+        });
+      </script>
+      <div class="message_form">
+        <%= render 'messages/message_form',
+        {from_user: current_user, to_user: @user, room_id: @room_id} %>
+      </div>
+    <% end %>
   </aside>
+
   <div class="col-md-8">
       <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>

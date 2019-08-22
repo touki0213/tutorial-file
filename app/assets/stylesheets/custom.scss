@@ -13,9 +13,6 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
-body {
-  padding-top: 180px;
-}
 
 section {
   overflow: auto;
@@ -65,8 +62,8 @@ p {
 #logo {
   float: left;
   margin-right: 10px;
-  font-size: 1.7em;
-  color: white;
+  font-size: 1.2em;
+  color: rgb(0, 204, 255);
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -76,6 +73,8 @@ p {
     text-decoration: none;
   }
 }
+
+
 
 /* footer */
 
@@ -288,4 +287,26 @@ span.picture {
   input {
     border: 0;
   }
+}
+
+// message
+section.message_box {
+  padding: 10px;
+  border: 1px solid $gray-light;
+  overflow: scroll;
+  #messages {
+    height: 400px;
+  }
+}
+
+div.message_form {
+  padding-top: 10px;
+}
+
+#message_sender {
+  font-size: 1.1em;
+}
+
+#message_content {
+  font-size: 1.0em;
 }

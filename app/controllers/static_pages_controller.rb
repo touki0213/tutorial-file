@@ -6,7 +6,8 @@ class StaticPagesController < ApplicationController
     end
   end
 
-  def help
+  def post
+    @micropost = current_user.microposts.build 
   end
 
   def about
