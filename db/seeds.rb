@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #ユーザー
-User.create!(name:  "Example User",
-    email: "example@railstutorial.org",
-    password:              "foobar",
-    password_confirmation: "foobar",
+User.create!(name:  "touki",
+    email: "touki@sano.com",
+    password:              "touki0213",
+    password_confirmation: "touki0213",
     admin:     true,
     activated: true,
     activated_at: Time.zone.now)
@@ -41,3 +41,5 @@ following = users[2..50] #最初のユーザーが3-51までフォローする
 followers = users[3..40] #（逆に）4-41のユーザーが最初のユーザーをフォローする
 following.each {|followed|user.follow(followed)}
 followers.each {|follower|follower.follow(user)}
+
+

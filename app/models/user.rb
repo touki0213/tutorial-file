@@ -111,6 +111,12 @@ end
       following.include?(other_user)
     end
 
+
+    #他のuserにmessageを送る
+    def send_message(other_user, room_id, content)
+      from_messages.create!(to_id: other_user.id, room_id: room_id, content: content)
+    end
+
   private
 
     # メールアドレスをすべて小文字にする
@@ -124,8 +130,4 @@ end
       self.activation_digest = User.digest(activation_token)
     end
 
-    #他のuserにmessageを送る
-    def send_message(other_user, room_id, content)
-      from_messages.create!(to_id: other_user.id, room_id: room_id, content: content)
-    end
 end

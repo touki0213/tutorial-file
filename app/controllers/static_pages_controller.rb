@@ -9,11 +9,4 @@ class StaticPagesController < ApplicationController
   def post
     @micropost = current_user.microposts.build 
   end
-
-  def about
-
-  end
-
-  def contacttio
-  end
 end

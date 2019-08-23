@@ -14,7 +14,7 @@
 
     <% if !current_user?(@user) && logged_in? %>
       <section class="message_box">
-        <div id="nessages">
+        <div id="messages">
           <%= render @messages %>
         </div>
       </section>
@@ -23,6 +23,7 @@
         $("div.message").each(function() {
           height += ($(this).height());
         });
+         $('section.message_box').scrollTop(height)
       </script>
       <div class="message_form">
         <%= render 'messages/message_form',
