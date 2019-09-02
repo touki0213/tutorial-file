@@ -1,4 +1,7 @@
 class Micropost < ActiveRecord::Base
+  has_many :likes, dependent: :destroy
+  has_many :iine_users, through: :likes, source: :user
+
   belongs_to :user  #userモデルと関連付けてる、対応するユーザーを特定する
   
   default_scope -> {order(created_at: :desc)}  #新しい投稿から古い投稿の順に並ばせる
@@ -6,6 +9,21 @@ class Micropost < ActiveRecord::Base
   validates :user_id, presence: true  #user_id の存在性
   validates :content, presence: true, length: {maximum:140}  #content の存在性。140文字の制限
   validate  :picture_size
+
+    #マイクロポストをいいねする
+    def iine(user)
+      likes.create(user_id: user.id)
+    end
+  
+    #マイクロポストのいいねを解除する
+    def uniine(user)
+      likes.find_by(user_id: user.id).destroy
+    end
+  
+    #現在のユーザーがいいねしてたらtrueを返す
+    def iine?(user)
+      iine_users.include?(user)
+    end
 
   private
 
@@ -15,4 +33,6 @@ class Micropost < ActiveRecord::Base
       errors.add(:picture, "shouldnbe less than 5MB")
     end
   end
+
+
 end

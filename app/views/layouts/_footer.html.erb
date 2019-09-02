@@ -1,11 +1,14 @@
-<footer class="footer">
-  <small>
-    The <a href="https://railstutorial.jp/">Ruby on Rails Tutorial</a>
-    by <a href="http://www.michaelhartl.com/">Michael Hartl</a>
-  </small>
-  <nav>
-    <ul>
-      <li><a href="http://news.railstutorial.org/">News</a></li>
-    </ul>
-  </nav> 
-</footer>
+<div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
+ <%if logged_in?%>
+  <footer class="bmd-layout-footer navbar-fixed-bottom" >
+    <div class="navbar navbar-light" style="background-color:#8EF1FF;">
+        <%= link_to "home",root_path,id:'logo' %>
+        <%= link_to "post", post_path,id:"logo" %>
+        <%= link_to "users", users_path,id:"logo" %>
+        <%# <%= link_to image_tag("home_logo.png", alt: "home logo",:size =>'32x24'),root_path %> 
+        <%# <%= link_to image_tag("post_logo.png",alt: "post logo",:size=>'32x24'), post_path %> 
+        <%# <%= link_to image_tag("user_logo.png",alt: "user logo",:size=>'32x24'), users_path %> 
+    </div>
+  </footer>
+  
+  <%end%>

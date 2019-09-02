@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :sent_messages, through: :from_messages, source: :from
   has_many :received_messages, through: :to_messages, source: :to
 
+  has_many :likes, dependent: :destroy
+
   attr_accessor :remember_token, :activation_token, :reset_token  #「attr_accessor」仮想の属性を作成
   before_save   :downcase_email
   before_create :create_activation_digest

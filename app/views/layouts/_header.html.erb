@@ -1,17 +1,16 @@
 <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
  <%if logged_in?%>
-  <header class="bmd-layout-header navbar-fixed-top" style="z-index: 1;">
+  <header class="bmd-layout-header navbar-fixed-top" style="z-index: 1; ">
     <div class="navbar navbar-light" style="background-color:#8EF1FF;">
       <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
         <span class="sr-only">Toggle drawer</span>
-        <i class="fas fa-bars"></i>      
+        <i class="fas fa-bars"></i>     
       </button>
-        <%= link_to "home",root_path,id:'logo' %>
-        <%= link_to "post", post_path,id:"logo" %>
-        <%= link_to "users", users_path,id:"logo" %>
-        <%# <%= link_to image_tag("home_logo.png", alt: "home logo",:size =>'32x24'),root_path %> 
-        <%# <%= link_to image_tag("post_logo.png",alt: "post logo",:size=>'32x24'), post_path %> 
-        <%# <%= link_to image_tag("user_logo.png",alt: "user logo",:size=>'32x24'), users_path %> 
+        <h4> 
+          <div class = "nav_title" >
+            <%= @nav_title %>
+          </div>
+        </h4>
     </div>
   </header>
   <div id="dw-s2" class="bmd-layout-drawer bg-faded">
@@ -24,6 +23,10 @@
         </button>
       </ul>
   </div>
-  <%else%>
-      <button class="btn btn-secondary"><%= link_to "Log in", login_path %></button>
-  <%end%>
+  <% else %>
+    <button class="btn btn-secondary"><%= link_to "Log in", login_path %></button>
+  <% end %>
+  
+
+
+  
