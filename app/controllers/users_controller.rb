@@ -103,5 +103,9 @@ class UsersController < ApplicationController
   def admin_user
     redirect_to(root_url) unless current_user.admin?
   end
+<<<<<<< HEAD
 
 end
+=======
+end
+>>>>>>> 794f9ecc5da2905bc32f6ce815a2a251f09a9f6e
