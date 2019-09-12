@@ -10,6 +10,8 @@ gem 'bootstrap-sass', '3.3.7'
 gem 'bcrypt',         '3.1.12'
 gem 'faker'
 
+gem 'coffee-rails', '~> 4.2'
+
 gem 'carrierwave',             '1.2.2'
 gem 'mini_magick',             '4.7.0'
 
